@@ -1,28 +1,25 @@
-# Backend starter code
+# Fondu backend code
 
-This repository is to be used as a starter for Koa based Node.js applications written in TypeScript and using MongoDB. It includes a range of nice packages and configurations. It also has a stub for user login via Telegram, Facebook and Google. Enjoy!
+Code for the server part of fondu.io.
 
 ## Installation and local launch
 
-1. Clone this repo: `git clone https://github.com/backmeupplz/backend-starter`
+1. Clone this repo: `git clone https://github.com/borodutch/fondu-backend`
 2. Launch the [mongo database](https://www.mongodb.com/) locally
 3. Create `.env` with the environment variables listed below
 4. Run `yarn install` in the root folder
 5. Run `yarn develop`
 
-And you should be good to go! Feel free to fork and submit pull requests. Documentation is [also available](https://github.com/backmeupplz/backend-starter/tree/master/docs) in this repo.
+And you should be good to go! Feel free to fork and submit pull requests. Documentation is [also available](https://github.com/backmeupplz/fondu-backend/tree/master/docs) in this repo.
 
 ## Environment variables
 
-| Name                                     | Description                                 |
-| ---------------------------------------- | ------------------------------------------- |
-| `MONGO`                                  | URL of the mongo database                   |
-| `JWT`                                    | secret for JWT                              |
-| `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` | Facebook login credentials                  |
-| `TELEGRAM_LOGIN_TOKEN`                   | Telegram login bot                          |
+| Name    | Description               |
+| ------- | ------------------------- |
+| `MONGO` | URL of the mongo database |
 
 Also, please, consider looking at `.env.sample`.
 
 ## Continuous integration
 
-Any commit pushed to master gets deployed to [backend.todorant.com](https://backend.todorant.com) via [CI Ninja](https://github.com/backmeupplz/ci-ninja).
+Any commit pushed to master gets deployed to [backend.fondu.io](https://backend.fondu.io) via [CI Ninja](https://github.com/backmeupplz/ci-ninja).
