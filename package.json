@@ -33,9 +33,12 @@
     "ts-jest": "^26.5.3"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^4.1.0",
     "@types/koa-bodyparser": "^4.3.0",
     "amala": "^5.1.2",
+    "class-validator": "^0.13.1",
     "dotenv": "^10.0.0",
+    "handlebars": "^4.7.7",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
