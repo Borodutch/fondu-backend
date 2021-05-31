@@ -6,7 +6,7 @@ import {
   IsBooleanString,
   IsEthereumAddress,
 } from 'class-validator'
-import { ERC20ContractData } from '../interfaces/erc20ContractData'
+import { ERC20ContractData } from '@/interfaces/erc20ContractData'
 
 class ValidTokenERC20 implements ERC20ContractData {
   @IsString()
@@ -36,7 +36,6 @@ class ValidTokenERC20 implements ERC20ContractData {
 
 @Controller('/tokens')
 export default class TokenController {
-  // Validation for add token ERC20 request
   @Post('/addTokenERC20')
   async validAddTokenERC20(@Body() body: ValidTokenERC20) {
     return body
