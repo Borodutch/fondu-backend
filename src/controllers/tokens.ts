@@ -1,14 +1,14 @@
 import { Controller, Body, Post } from 'amala'
 import {
-  validate,
   IsNumber,
   IsString,
   IsBooleanString,
   IsEthereumAddress,
 } from 'class-validator'
-import { ERC20ContractData } from '@/interfaces/erc20ContractData'
+import { ERC20 } from '@/interfaces/erc20'
+import { ERC721 } from '@/interfaces/erc721'
 
-class ValidTokenERC20 implements ERC20ContractData {
+class Erc20Validation implements ERC20 {
   @IsString()
   name: string
 
@@ -18,7 +18,7 @@ class ValidTokenERC20 implements ERC20ContractData {
   @IsNumber()
   rate: number
 
-  @IsString()
+  @IsEthereumAddress()
   receiver: string
 
   @IsNumber()
@@ -34,10 +34,32 @@ class ValidTokenERC20 implements ERC20ContractData {
   maxTokens: number
 }
 
-@Controller('/tokens')
+class Erc721Validation implements ERC721 {
+  @IsString()
+  name: string
+
+  @IsString()
+  symbol: string
+
+  @IsNumber()
+  rate: number
+
+  @IsString()
+  tokenURI: string
+
+  @IsEthereumAddress()
+  receiver: string
+}
+
+@Controller('/')
 export default class TokenController {
-  @Post('/addTokenERC20')
-  async validAddTokenERC20(@Body() body: ValidTokenERC20) {
+  @Post('ERC20')
+  async addERC20(@Body() body: Erc20Validation) {
+    return body
+  }
+
+  @Post('ERC721')
+  async addERC721(@Body() body: Erc721Validation) {
     return body
   }
 }
