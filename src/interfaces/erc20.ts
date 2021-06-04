@@ -1,4 +1,4 @@
-export interface ERC20 {
+export default interface ERC20 {
   name: string
   symbol: string
   rate: number

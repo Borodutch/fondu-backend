@@ -13,9 +13,9 @@ import { runMongo } from '@/models/index'
 
 // Run mongo
 runMongo().then(() => {
-  console.log('Mongo connected')
+  console.log('Mongo connected successfully')
 })
 // Start rest
 app.listen(1337).on('listening', () => {
-  console.log('HTTP is listening on 1337')
+  console.log('Fondu backend is listening on 1337')
 })

@@ -1,4 +1,4 @@
-export interface ERC721 {
+export default interface ERC721 {
   name: string
   symbol: string
   rate: number
