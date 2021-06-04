@@ -1,3 +1,5 @@
+import { mkdirSync, writeFileSync } from 'fs'
+import { nanoid } from 'nanoid'
 import { Controller, Body, Post } from 'amala'
 import {
   IsNumber,
@@ -56,8 +58,13 @@ class Erc721Validation implements ERC721 {
 export default class TokenController {
   @Post('ERC20')
   async addERC20(@Body() body: Erc20Validation) {
-    const data = body
-    const contract = buildERC20(data)
+    const contract = buildERC20(body)
+    const slug = nanoid()
+    mkdirSync('./src/contracts/' + slug)
+    writeFileSync(
+      './src/contracts/' + slug + '/' + slug + '.sol',
+      contract.toString(),
+    )
 
     return contract
   }
