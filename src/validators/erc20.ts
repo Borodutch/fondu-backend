@@ -4,7 +4,7 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator'
-import { ERC20 } from '@/interfaces/erc20'
+import ERC20 from '@/interfaces/erc20'
 
 export default class Erc20Validation implements ERC20 {
   @IsString()
@@ -27,6 +27,9 @@ export default class Erc20Validation implements ERC20 {
 
   @IsBooleanString()
   whitelist: boolean
+
+  @IsBooleanString()
+  capped: boolean
 
   @IsNumber()
   maxTokens: number
