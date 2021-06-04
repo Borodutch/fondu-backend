@@ -21,6 +21,6 @@ export const app = new Koa()
     app.use(router.routes())
     app.use(router.allowedMethods())
   } catch (err) {
-    console.log('Koa app starting error: ', err)
+    console.log('Fondu starting error: ', err)
   }
 })()
