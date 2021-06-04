@@ -7,6 +7,7 @@ import {
 } from 'class-validator'
 import { ERC20 } from '@/interfaces/erc20'
 import { ERC721 } from '@/interfaces/erc721'
+import buildERC20 from '@/helpers/erc20Builder'
 
 class Erc20Validation implements ERC20 {
   @IsString()
@@ -55,7 +56,10 @@ class Erc721Validation implements ERC721 {
 export default class TokenController {
   @Post('ERC20')
   async addERC20(@Body() body: Erc20Validation) {
-    return body
+    const data = body
+    let contract = buildERC20(data)
+
+    return contract
   }
 
   @Post('ERC721')
