@@ -6,7 +6,8 @@ import * as cors from '@koa/cors'
 import * as Router from 'koa-router'
 
 export const app = new Koa()
-;(async () => {
+
+async function bootstrap() {
   try {
     const router = new Router()
     await bootstrapControllers({
@@ -23,4 +24,6 @@ export const app = new Koa()
   } catch (err) {
     console.log('Fondu starting error: ', err)
   }
-})()
+}
+
+bootstrap()

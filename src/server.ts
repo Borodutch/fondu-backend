@@ -11,11 +11,10 @@ dotenv.config({ path: `${__dirname}/../.env` })
 import { app } from '@/app'
 import { runMongo } from '@/models/index'
 
-// Run mongo
 runMongo().then(() => {
   console.log('Mongo connected successfully')
 })
-// Start rest
+
 app.listen(1337).on('listening', () => {
   console.log('Fondu backend is listening on 1337')
 })
