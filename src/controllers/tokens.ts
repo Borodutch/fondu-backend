@@ -1,5 +1,5 @@
 import { mkdirSync, writeFileSync } from 'fs'
-import { customAlphabet } from 'nanoid'
+import { nanoid } from 'nanoid'
 import { Controller, Body, Post } from 'amala'
 import {
   IsNumber,
@@ -59,10 +59,9 @@ export default class TokenController {
   @Post('ERC20')
   async addERC20(@Body() body: Erc20Validation) {
     const contract = buildERC20(body)
-    const nanoid = customAlphabet('1234567890abcdef', 10)
     const slug = nanoid()
     mkdirSync('./src/contracts/' + slug)
-    const contractFile = writeFileSync(
+    writeFileSync(
       './src/contracts/' + slug + '/' + slug + '.sol',
       contract.toString(),
     )
