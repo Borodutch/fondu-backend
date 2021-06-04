@@ -12,7 +12,7 @@ export default class TokenController {
     const contract = buildERC20(body)
     const slug = nanoid(10)
     mkdirSync(`./src/contracts/${slug}`)
-    writeFileSync(`./src/contracts/${slug}/${slug}.sol`, contract.toString())
+    writeFileSync(`./src/contracts/${slug}/${slug}.sol`, contract)
     return contract
   }
 
