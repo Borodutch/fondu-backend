@@ -63,7 +63,7 @@ export default class TokenController {
     mkdirSync('./src/contracts/' + slug)
     writeFileSync(
       './src/contracts/' + slug + '/' + slug + '.sol',
-      contract.toString(),
+      contract.toString()
     )
 
     return contract
