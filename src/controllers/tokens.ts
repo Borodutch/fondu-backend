@@ -57,7 +57,7 @@ export default class TokenController {
   @Post('ERC20')
   async addERC20(@Body() body: Erc20Validation) {
     const data = body
-    let contract = buildERC20(data)
+    const contract = buildERC20(data)
 
     return contract
   }
