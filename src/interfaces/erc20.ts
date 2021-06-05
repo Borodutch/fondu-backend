@@ -6,5 +6,6 @@ export default interface ERC20 {
   decimals: number
   timed: boolean
   whitelist: boolean
+  capped: boolean
   maxTokens: number
 }

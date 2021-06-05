@@ -28,6 +28,9 @@ export default class Erc20Validation implements ERC20 {
   @IsBooleanString()
   whitelist: boolean
 
+  @IsBooleanString()
+  capped: boolean
+
   @IsNumber()
   maxTokens: number
 }

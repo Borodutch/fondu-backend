@@ -11,8 +11,15 @@ export default class TokenController {
   async addERC20(@Body() body: Erc20Validation) {
     const contract = buildERC20(body)
     const slug = nanoid(10)
-    mkdirSync(`./src/contracts/${slug}`)
-    writeFileSync(`./src/contracts/${slug}/${slug}.sol`, contract)
+    mkdirSync('./src/contracts/' + slug)
+    writeFileSync(
+      `./src/contracts/${slug}/token${slug}.sol`,
+      contract.tokenContract.toString()
+    )
+    writeFileSync(
+      `./src/contracts/${slug}/crowdsale${slug}.sol`,
+      contract.crowdsaleContract.toString()
+    )
     return contract
   }
 

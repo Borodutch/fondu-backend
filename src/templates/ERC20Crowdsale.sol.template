@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.5.0;
+
+import "@openzeppelin/contracts/crowdsale/emission/MintedCrowdsale.sol";
+import "@openzeppelin/contracts/ownership/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20Mintable.sol";{{#if timed}}
+import "@openzeppelin/contracts/crowdsale/validation/TimedCrowdsale.sol";{{/if}}{{#if capped}}
+import "@openzeppelin/contracts/crowdsale/validation/CappedCrowdsale.sol";{{/if}}{{#if whitelist}}
+import "@openzeppelin/contracts/crowdsale/validation/WhitelistCrowdsale.sol";{{/if}}
+
+contract {{ symbol }}Crowdsale is
+    MintedCrowdsale,
+    Ownable {{#if timed}},
+    TimedCrowdsale{{/if}}{{#if capped}},
+    CappedCrowdsale{{/if}}{{#if whitelist}},
+    WhitelistCrowdsale{{/if}}
+{
+    constructor(
+        ERC20Mintable _token,
+        uint256 _rate,
+        address payable _wallet{{#if timed}},
+        uint256 _openingTime,
+        uint256 _closingTime{{/if}}{{#if capped}},
+        uint256 _cap{{/if}}
+    )
+        public
+        Crowdsale(_rate, _wallet, _token){{#if timed}}
+        TimedCrowdsale(_openingTime, _closingTime){{/if}}{{#if capped}}
+        CappedCrowdsale(_cap){{/if}}
+    {}
+}
