@@ -4,7 +4,6 @@ export class Contract {
   @prop({ required: true })
   type: string
 
-  // Mongo property
   _doc: any
 }
 
