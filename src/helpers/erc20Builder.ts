@@ -2,8 +2,8 @@ import ERC20ContractData from '@/interfaces/erc20'
 import buildTemplate from '@/helpers/templateBuilder'
 
 interface ERC20Contracts {
-  tokenContract: String
-  crowdsaleContract: String
+  tokenContract: string
+  crowdsaleContract: string
 }
 
 export default function buildERC20Contract(
