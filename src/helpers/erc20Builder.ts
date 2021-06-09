@@ -1,10 +1,9 @@
-import { readFileSync } from 'fs'
-import { compile } from 'handlebars'
 import ERC20ContractData from '@/interfaces/erc20'
+import buildTemplate from '@/helpers/templateBuilder'
 
 interface ERC20Contracts {
-  tokenContract: String
-  crowdsaleContract: String
+  tokenContract: string
+  crowdsaleContract: string
 }
 
 export default function buildERC20Contract(
@@ -17,10 +16,4 @@ export default function buildERC20Contract(
       './src/templates/ERC20Crowdsale.sol.template'
     ),
   }
-}
-
-function buildTemplate(data: ERC20ContractData, templatePath: String): String {
-  const contractTemplate = readFileSync(templatePath.toString())
-  let contractBuilder = compile(contractTemplate.toString())
-  return contractBuilder(data)
 }
