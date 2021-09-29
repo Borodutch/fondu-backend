@@ -7,4 +7,11 @@ contract {{ symbol }}Token is ERC20Mintable {
     string public constant name = "{{ name }}";
     string public constant symbol = "{{ symbol }}";
     uint8 public constant decimals = {{ decimals }};
+    
+    string public constant rate = "{{ rate }}";
+    string public constant receiver = "{{ receiver }}";
+    string public constant timed = "{{ timed }}";
+    string public constant whitelist = "{{ whitelist }}";
+    string public constant capped = "{{ capped }}";
+    string public constant maxTokens = "{{ maxTokens }}";
 }
