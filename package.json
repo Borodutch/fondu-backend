@@ -51,6 +51,7 @@
     "mongoose": "5.10.18",
     "nanoid": "^3.1.23",
     "solc": "^0.8.7-fixed",
+    "tmp": "^0.2.1",
     "typescript": "^4.2.3"
   },
   "_moduleAliases": {

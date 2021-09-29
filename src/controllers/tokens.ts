@@ -8,6 +8,7 @@ import Erc20Validation from "@/validators/erc20";
 import Erc721Validation from "@/validators/erc721";
 import { ethers } from "ethers";
 let solc = require("solc");
+let tmp = require("tmp");
 
 @Controller("/")
 export default class TokenController {
@@ -36,31 +37,6 @@ export default class TokenController {
   @Post("erc721")
   async addERC721(@Body() body: Erc721Validation) {
     const contract = buildERC721(body);
-
-    writeFileSync(`./src/contracts/test.sol`, contract);
-
-    const input = {
-      language: "Solidity",
-      sources: {
-        "test.sol": {
-          urls: ["C:/Users/Semion/code/fondu-backend/src/contract/test.sol"],
-        },
-      },
-      settings: {
-        outputSelection: {
-          "*": {
-            "*": ["*"],
-          },
-        },
-      },
-    };
-    const outputComp = JSON.parse(solc.compile(JSON.stringify(input)));
-    console.log(outputComp);
-
-    unlinkSync("./src/contracts/test.sol");
-
-    // const ethersContract = ethers.ContractFactory.fromSolidity(outputComp)
-    // console.log(ethersContract.bytecode)
     return contract;
   }
 }
