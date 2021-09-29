@@ -37,6 +37,39 @@ export default class TokenController {
   @Post("erc721")
   async addERC721(@Body() body: Erc721Validation) {
     const contract = buildERC721(body);
+
+    // Временный файл
+    let tmpFile = tmp.fileSync({
+      mode: 0o644,
+      prefix: "contract-",
+      postfix: ".sol",
+      keep: true,
+    });
+
+    writeFileSync(tmpFile.name, contract);
+
+    // Настройки компилятора. Возможные настройки:
+    // https://docs.soliditylang.org/en/v0.5.0/using-the-compiler.html#error-types
+    const input = {
+      language: "Solidity",
+      sources: {
+        "test.sol": {
+          urls: [tmpFile.name],
+        },
+      },
+    };
+
+    const outputComp = JSON.parse(solc.compile(JSON.stringify(input)));
+
+    console.log(outputComp);
+
+    tmpFile.removeCallback();
+
+    // Начало деплоя. Необходимы выходные данные компилятора.
+    // Отключено потому что отдает ошибку из за того что компилятор не работает.
+    // Информация про деплой: https://docs.ethers.io/v5/api/contract/contract-factory/
+    // const ethersContract = ethers.ContractFactory.fromSolidity(outputComp)
+    // console.log(ethersContract.bytecode)
     return contract;
   }
 }
