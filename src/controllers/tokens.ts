@@ -1,13 +1,13 @@
-import { Controller, Body, Post } from "amala";
-import { mkdirSync, writeFileSync, readFileSync } from "fs";
-import { nanoid } from "nanoid";
-import { ContractModel } from "@/models/contracts";
-import buildERC20 from "@/helpers/erc20Builder";
-import buildERC721 from "@/helpers/erc721Builder";
-import Erc20Validation from "@/validators/erc20";
-import Erc721Validation from "@/validators/erc721";
-import { ethers } from "ethers";
-let solc = require("solc");
+import { Controller, Body, Post } from 'amala'
+import { mkdirSync, writeFileSync, readFileSync } from 'fs'
+import { nanoid } from 'nanoid'
+import { ContractModel } from '@/models/contracts'
+import buildERC20 from '@/helpers/erc20Builder'
+import buildERC721 from '@/helpers/erc721Builder'
+import Erc20Validation from '@/validators/erc20'
+import Erc721Validation from '@/validators/erc721'
+import { ethers } from 'ethers'
+let solc = require('solc')
 
 @Controller('/')
 export default class TokenController {
@@ -32,15 +32,15 @@ export default class TokenController {
     return contract
   }
 
-  @Post("erc721")
+  @Post('erc721')
   async addERC721(@Body() body: Erc721Validation) {
-    const contract = buildERC721(body);
+    const contract = buildERC721(body)
 
     // Compile settings
     const input = {
-      language: "Solidity",
+      language: 'Solidity',
       sources: {
-        "test2.sol": {
+        'test2.sol': {
           content: contract,
         },
       },
@@ -48,46 +48,46 @@ export default class TokenController {
         optimizer: {
           enabled: true,
         },
-        evmVersion: "byzantium",
+        evmVersion: 'byzantium',
         outputSelection: {
-          "*": {
-            "*": ["abi", "evm.bytecode.object"],
+          '*': {
+            '*': ['abi', 'evm.bytecode.object'],
           },
         },
       },
-    };
+    }
 
     // Callback func for searching "import libs" in sol
     function findImports(path) {
-      const basePath = "./node_modules/";
+      const basePath = './node_modules/'
       return {
-        contents: readFileSync(basePath + path, "utf8"),
-      };
+        contents: readFileSync(basePath + path, 'utf8'),
+      }
     }
 
     const outputComp = JSON.parse(
       solc.compile(JSON.stringify(input), { import: findImports })
-    );
+    )
 
     // Register provider and signer
     const provider = new ethers.providers.JsonRpcProvider(
-      "http://127.0.0.1:7545"
-    );
-    const signer = await provider.getSigner();
+      'http://127.0.0.1:7545'
+    )
+    const signer = await provider.getSigner()
 
     // Register factory for deploying contract
-    const abi = outputComp.contracts["test2.sol"].MyToken.abi;
-    const interfaceForFactory = new ethers.utils.Interface(abi);
-    const bytecode = outputComp.contracts["test2.sol"].MyToken.evm.bytecode;
+    const abi = outputComp.contracts['test2.sol'].MyToken.abi
+    const interfaceForFactory = new ethers.utils.Interface(abi)
+    const bytecode = outputComp.contracts['test2.sol'].MyToken.evm.bytecode
 
     const factory = new ethers.ContractFactory(
       interfaceForFactory,
       bytecode,
       signer
-    );
+    )
 
-    const deployedContract = await factory.deploy();
+    const deployedContract = await factory.deploy()
 
-    return deployedContract;
+    return deployedContract
   }
 }
