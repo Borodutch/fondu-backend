@@ -1,0 +1,5 @@
+constructor() ERC721("{{{name}}}", "{{{symbol}}}") {
+        grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        {{{pauserRole}}}
+        grantRole(MINTER_ROLE, msg.sender);
+    }

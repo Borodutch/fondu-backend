@@ -1,4 +1,4 @@
-import { Controller, Body, Post } from 'amala'
+import { Controller, Body, Post, Get } from 'amala'
 import { mkdirSync, writeFileSync, readFileSync } from 'fs'
 import { nanoid } from 'nanoid'
 import { ContractModel } from '@/models/contracts'
@@ -7,6 +7,7 @@ import buildERC721 from '@/helpers/erc721Builder'
 import Erc20Validation from '@/validators/erc20'
 import Erc721Validation from '@/validators/erc721'
 import { ethers } from 'ethers'
+import { privateEncrypt } from 'crypto'
 let solc = require('solc')
 
 @Controller('/')
@@ -69,25 +70,12 @@ export default class TokenController {
       solc.compile(JSON.stringify(input), { import: findImports })
     )
 
-    // Register provider and signer
-    const provider = new ethers.providers.JsonRpcProvider(
-      'http://127.0.0.1:7545'
-    )
-    const signer = await provider.getSigner()
-
     // Register factory for deploying contract
-    const abi = outputComp.contracts['test2.sol'].MyToken.abi
-    const interfaceForFactory = new ethers.utils.Interface(abi)
-    const bytecode = outputComp.contracts['test2.sol'].MyToken.evm.bytecode
+    const abi = outputComp.contracts['test2.sol'][`${body.name}`].abi
+    const bytecode =
+      outputComp.contracts['test2.sol'][`${body.name}`].evm.bytecode
 
-    const factory = new ethers.ContractFactory(
-      interfaceForFactory,
-      bytecode,
-      signer
-    )
-
-    const deployedContract = await factory.deploy()
-
-    return deployedContract
+    const res = { abi, bytecode, contract }
+    return JSON.stringify(res)
   }
 }

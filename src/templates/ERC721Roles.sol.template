@@ -1,0 +1,34 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.2;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+{{{uriStorage.import}}}
+{{{enumerable.import}}}
+{{{pausable.import}}}
+{{{mintable.import}}}
+{{{autoIncrementIds.import}}}
+{{{burnable.import}}}
+
+contract {{name}} is ERC721{{uriStorage.contractName}}{{enumerable.contractName}}{{pausable.contractName}}{{burnable.contractName}}{{mintable.contractName}} {
+    {{{autoIncrementIds.counter.usingCounters}}}
+
+    {{{pausable.pauserRole}}}
+    {{{mintable.minterRole}}}
+    {{{autoIncrementIds.counter.countersCounter}}}
+
+    {{{roles}}}{{{mintable.constructor}}}{{{pausable.constructor}}}
+
+    {{{baseUri}}}
+
+    {{{pausable.pauseUnpause}}}
+    
+    {{{mintable.safeMint}}}{{{autoIncrementIds.mintFunc}}}{{{uriStorage.mintFunc}}}
+
+    {{{pausable.tokenTransfer}}}{{{enumerable.tokenTransfer}}}
+
+    {{{mintable.overrides}}}{{{enumerable.overrides}}}
+
+    {{{uriStorage.burnTokenUri}}}
+
+    {{{mintable.supportsInterface}}}{{{enumerable.supportsInterface}}}
+}

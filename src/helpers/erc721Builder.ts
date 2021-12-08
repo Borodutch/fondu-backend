@@ -1,6 +1,15 @@
+import { readFileSync } from 'fs'
+import { compile } from 'handlebars'
+import { constructTemplate } from './constructTemplate'
 import ERC721ContractData from '@/interfaces/erc721'
-import buildTemplate from '@/helpers/templateBuilder'
 
-export default function buildERC721Contract(data: ERC721ContractData): string {
-  return buildTemplate(data, './src/templates/ERC721.sol.template')
+export default function buildERC721(data: ERC721ContractData): string {
+  const templatePath = data.roles
+    ? './src/templates/ERC721Roles.sol.template'
+    : './src/templates/ERC721.sol.template'
+
+  const dataTemplate = constructTemplate(data)
+  const contractTemplate = readFileSync(templatePath)
+  const contractBuilder = compile(contractTemplate.toString())
+  return contractBuilder(dataTemplate)
 }
